@@ -33,10 +33,9 @@ Copy the `helper` folder and pickled files to your project directory:
 
 ```bash
 cp -r /path/to/helper /path/to/your/project
-cp /path/to/image_file.pkl /path/to/your/project
-cp /path/to/product_link_file.pkl /path/to/your/project
-cp /path/to/product_name.pkl /path/to/your/project
-cp /path/to/top_10_Similar_Products_Index_Matrix.pkl /path/to/your/project
+cp /path/to/top100_product_indexs /path/to/your/project
+cp /path/to/Product-details/path/to/your/project
+cp /path/to/top10 Similar Products Index Matrix.pkl /path/to/your/project
 ```
 
 Install the required dependencies:
@@ -50,7 +49,8 @@ pip install -r requirements.txt
 Run the recommendation system:
 
 ```python
-from helper.recommender_system import recommender
+from helper.recommender_system import recommender,matrix_display
+
 ```
 
 Load the pickled files:
@@ -59,23 +59,23 @@ Load the pickled files:
 import pickle
 
 # Load pickled files
-image_file = pickle.load(open('image_file.pkl', 'rb'))
-product_link_file = pickle.load(open('product_link_file.pkl', 'rb'))
-product_name = pickle.load(open('product_name.pkl', 'rb'))
-similar_products_matrix = pickle.load(open('top_10_Similar_Products_Index_Matrix.pkl', 'rb'))
+product_details = pkl.load(open('pickled/version2/Product-details.pkl','rb'))
+similarity_metrix = pkl.load(open('pickled/version2/top10 Similar Products Index Matrix.pkl','rb'))
+top_products_index = pkl.load(open('pickled/version2/top100_product_indexs.pkl','rb'))
+
 
 # Create a recommender instance
-recommendation_system = recommender(image_file, product_link_file, product_name, similar_products_matrix)
+recommended_ids = recommender(selected_product_index,similarity_metrix)
 
 # Example usage
 user_interests = 894  # nth - ( 894th product) Replace with actual user interests   
 recommendations = recommender(user_interests,similar_products_matrix)
-print(recommendations)
+print(recommendations) # recommendations are in the index location format of those products.
 ```
 
 This will provide recommendations based on a user's interests.
 
-for more you can [see](app.py).
+for more you can [see](https://www.kaggle.com/code/akeshkumarhp/amazon-electronics-product-recommender-system)
 ## Dataset
 
 The dataset used for training and testing the recommendation system is available on Kaggle. You can find it [here](https://www.kaggle.com/datasets/lokeshparab/amazon-products-dataset).
